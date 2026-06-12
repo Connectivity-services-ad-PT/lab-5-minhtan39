@@ -1,44 +1,47 @@
-"""
-Simple AI service mock for Lab 05.
-
-This service exposes two endpoints:
-
-* `GET /health` – returns status, service name and version.
-* `POST /predict` – returns a dummy list of detected objects and confidences.
-
-You can replace this file with your actual inference code (e.g. YOLOv8 model).
-"""
+from typing import List
 
 from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import List
-
-SERVICE_NAME = "ai-service"
-SERVICE_VERSION = "0.5.0"
-
-app = FastAPI(
-    title="FIT4110 Lab 05 - AI Service",
-    version=SERVICE_VERSION,
-    description="Mock AI service used in Docker Compose stack.",
-)
 
 
-class Prediction(BaseModel):
-    objects: List[str]
-    confidence: List[float]
+app = FastAPI(title="Mock AI Vision Service", version="0.5.0-team-camera")
+
+
+class Detection(BaseModel):
+    label: str
+    confidence: float
+
+
+class DetectRequest(BaseModel):
+    frame_id: str
+    camera_id: str
+    image_base64: str
+
+
+class DetectResponse(BaseModel):
+    frame_id: str
+    model_version: str
+    detections: List[Detection]
 
 
 @app.get("/health")
 def health() -> dict:
-    return {"status": "ok", "service": SERVICE_NAME, "version": SERVICE_VERSION}
+    return {"status": "ok", "service": "ai-vision-mock", "version": "0.5.0-team-camera"}
 
 
-@app.post("/predict", response_model=Prediction)
-def predict() -> Prediction:
-    # This dummy implementation always returns two objects
-    return Prediction(objects=["person", "bicycle"], confidence=[0.98, 0.85])
+@app.post("/api/v1/detect", response_model=DetectResponse)
+def detect(payload: DetectRequest) -> DetectResponse:
+    return DetectResponse(
+        frame_id=payload.frame_id,
+        model_version="mock-yolov8n-0.1",
+        detections=[
+            Detection(label="person", confidence=0.94),
+            Detection(label="backpack", confidence=0.81),
+        ],
+    )
 
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=9000)
