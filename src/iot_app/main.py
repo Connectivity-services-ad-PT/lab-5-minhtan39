@@ -72,7 +72,11 @@ def problem(status_code: int, title: str, detail: str, instance: Optional[str] =
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request: Request, exc: HTTPException) -> JSONResponse:
     body = exc.detail if isinstance(exc.detail, dict) else problem(exc.status_code, "HTTP error", str(exc.detail), str(request.url.path))
-    return JSONResponse(exc.status_code, body, media_type="application/problem+json")
+    return JSONResponse(
+        status_code=exc.status_code,
+        content=body,
+        media_type="application/problem+json",
+    )
 
 
 @app.exception_handler(RequestValidationError)
