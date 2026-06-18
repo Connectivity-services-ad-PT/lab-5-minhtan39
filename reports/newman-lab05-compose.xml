@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="FIT4110 Lab05 Camera Stream Compose" tests="8" time="0.126">
+  <testsuite name="01_Functional / Health returns ok" id="f32abeca-10fc-4787-bf6d-7096fa4fe333" timestamp="2026-06-18T13:11:36.705Z" tests="2" failures="0" errors="0" time="0.028">
+    <testcase name="health is 200" time="0.028" classname="01FunctionalHealthReturnsOk"/>
+    <testcase name="service is camera stream" time="0.028" classname="01FunctionalHealthReturnsOk"/>
+  </testsuite>
+  <testsuite name="01_Functional / Upload valid frame" id="f662d9c5-9dfb-4cfa-9ecc-f641d5ef83dd" timestamp="2026-06-18T13:11:36.705Z" tests="2" failures="0" errors="0" time="0.007">
+    <testcase name="frame accepted or mocked" time="0.007" classname="01FunctionalUploadValidFrame"/>
+    <testcase name="accepted response has camera id field" time="0.007" classname="01FunctionalUploadValidFrame"/>
+  </testsuite>
+  <testsuite name="01_Functional / List frames" id="de5aa24c-6aa4-4030-a0f0-905d13535313" timestamp="2026-06-18T13:11:36.705Z" tests="2" failures="0" errors="0" time="0.004">
+    <testcase name="list is successful" time="0.004" classname="01FunctionalListFrames"/>
+    <testcase name="items exists" time="0.004" classname="01FunctionalListFrames"/>
+  </testsuite>
+  <testsuite name="02_Auth / Upload without token is rejected" id="1b5c53bd-a28c-420b-9ed5-262281db6742" timestamp="2026-06-18T13:11:36.705Z" tests="1" failures="0" errors="0" time="0.003">
+    <testcase name="unauthorized" time="0.003" classname="02AuthUploadWithoutTokenIsRejected"/>
+  </testsuite>
+  <testsuite name="03_Negative / Invalid image payload returns validation error" id="6178beb1-39f4-406d-bdde-5507ef4d82e7" timestamp="2026-06-18T13:11:36.705Z" tests="2" failures="0" errors="0" time="0.004">
+    <testcase name="invalid payload rejected" time="0.004" classname="03NegativeInvalidImagePayloadReturnsValidationError"/>
+    <testcase name="problem details status exists" time="0.004" classname="03NegativeInvalidImagePayloadReturnsValidationError"/>
+  </testsuite>
+  <testsuite name="04_Boundary_Reliability / Motion score boundary high is accepted" id="d42aafb9-0427-48b7-ad6e-d1988ca2f153" timestamp="2026-06-18T13:11:36.705Z" tests="1" failures="0" errors="0" time="0.004">
+    <testcase name="boundary score accepted" time="0.004" classname="04BoundaryReliabilityMotionScoreBoundaryHighIsAccepted"/>
+  </testsuite>
+  <testsuite name="05_Consumer_side_Smoke / Analyze frame handles Vision and Analytics dependency" id="0f4190cf-7320-4ad9-80fc-6369f1a1e43e" timestamp="2026-06-18T13:11:36.705Z" tests="1" failures="0" errors="0" time="0.073">
+    <testcase name="dependency behavior is controlled" time="0.073" classname="05ConsumerSideSmokeAnalyzeFrameHandlesVisionAndAnalyticsDependency"/>
+  </testsuite>
+  <testsuite name="06_Local_only_NonFunctional / Local health latency below 1000ms" id="9cddfb29-7779-4491-85ab-3028b6c2be25" timestamp="2026-06-18T13:11:36.705Z" tests="1" failures="0" errors="0" time="0.003">
+    <testcase name="latency below 1000ms" time="0.003" classname="06LocalOnlyNonFunctionalLocalHealthLatencyBelow1000Ms"/>
+  </testsuite>
+</testsuites>

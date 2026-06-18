@@ -82,7 +82,11 @@ async def http_exception_handler(request: Request, exc: HTTPException) -> JSONRe
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError) -> JSONResponse:
     first = exc.errors()[0] if exc.errors() else {}
-    return JSONResponse(422, problem(422, "Validation error", first.get("msg", "invalid request"), str(request.url.path)), media_type="application/problem+json")
+    return JSONResponse(
+        status_code=422,
+        content=problem(422, "Validation error", first.get("msg", "invalid request"), str(request.url.path)),
+        media_type="application/problem+json",
+    )
 
 
 def verify_bearer_token(authorization: Optional[str] = Header(default=None)) -> None:
