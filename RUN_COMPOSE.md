@@ -50,6 +50,8 @@ curl -X POST http://localhost:8000/api/v1/frames/FR-YYYYMMDD-0001/analyze \
   -H "Authorization: Bearer local-dev-token"
 ```
 
+During analyze, the API sends AI Vision a payload with `request_id`, `camera_id`, `timestamp`, `location`, `motion_score`, and `image_base64`, then sends Analytics an event with `risk_level`, `unknown_person`, and `alert_candidate`.
+
 ## 5. Run Newman
 
 ```bash

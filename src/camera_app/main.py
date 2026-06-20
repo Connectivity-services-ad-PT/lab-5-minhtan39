@@ -65,6 +65,39 @@ def motion_level(score: float) -> str:
     return MotionLevel.none.value
 
 
+def build_vision_payload(frame_id: str, frame: Dict) -> Dict:
+    return {
+        "request_id": f"vision-{frame_id}",
+        "camera_id": frame["camera_id"],
+        "timestamp": frame["captured_at"],
+        "location": frame["location"],
+        "motion_score": frame["motion_score"],
+        "image_base64": frame["image_base64"],
+        "snapshot_url": None,
+    }
+
+
+def build_camera_event(frame_id: str, frame: Dict, vision_body: Dict) -> Dict:
+    risk_level = vision_body.get("risk_level", "low") if isinstance(vision_body, dict) else "low"
+    unknown_person = bool(vision_body.get("unknown_person", False)) if isinstance(vision_body, dict) else False
+    return {
+        "event_type": "camera.motion.analyzed",
+        "source_service": "team-camera",
+        "request_id": f"vision-{frame_id}",
+        "frame_id": frame_id,
+        "camera_id": frame["camera_id"],
+        "location": frame["location"],
+        "occurred_at": now_iso(),
+        "timestamp": frame["captured_at"],
+        "motion_detected": True,
+        "motion_score": frame["motion_score"],
+        "motion_level": frame["motion_level"],
+        "risk_level": risk_level,
+        "unknown_person": unknown_person,
+        "alert_candidate": risk_level in {"high", "critical"} or unknown_person,
+    }
+
+
 def problem(status_code: int, title: str, detail: str, instance: Optional[str] = None) -> Dict:
     return {"type": "about:blank", "title": title, "status": status_code, "detail": detail, "instance": instance}
 
@@ -138,15 +171,24 @@ async def analyze_frame(frame_id: str) -> Dict:
     if frame is None:
         raise HTTPException(404, problem(404, "Not found", f"Frame {frame_id} does not exist"))
 
+    vision_payload = build_vision_payload(frame_id, frame)
     vision = await post_with_timeout(
         f"{VISION_SERVICE_URL.rstrip('/')}/api/v1/detect",
-        {"frame_id": frame_id, "camera_id": frame["camera_id"], "image_base64": frame["image_base64"]},
+        vision_payload,
     )
+    vision_body = vision.get("body", {}) if isinstance(vision, dict) else {}
+    analytics_event = build_camera_event(frame_id, frame, vision_body)
     analytics = await post_with_timeout(
         f"{ANALYTICS_URL.rstrip('/')}/api/v1/events",
-        {"event_type": "camera.frame_analyzed", "frame_id": frame_id, "camera_id": frame["camera_id"], "occurred_at": now_iso()},
+        analytics_event,
     )
-    return {"frame_id": frame_id, "vision": vision, "analytics": analytics}
+    return {
+        "frame_id": frame_id,
+        "vision_request": vision_payload,
+        "vision": vision_body or vision,
+        "analytics_event": analytics_event,
+        "analytics": analytics,
+    }
 
 
 @app.get("/api/v1/frames", dependencies=[Depends(verify_bearer_token)])

@@ -1,31 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="FIT4110 Lab05 Camera Stream Compose" tests="8" time="0.126">
-  <testsuite name="01_Functional / Health returns ok" id="f32abeca-10fc-4787-bf6d-7096fa4fe333" timestamp="2026-06-18T13:11:36.705Z" tests="2" failures="0" errors="0" time="0.028">
-    <testcase name="health is 200" time="0.028" classname="01FunctionalHealthReturnsOk"/>
-    <testcase name="service is camera stream" time="0.028" classname="01FunctionalHealthReturnsOk"/>
+<testsuites name="FIT4110 Lab05 Camera Stream Compose" tests="8" time="0.179">
+  <testsuite name="01_Functional / Health returns ok" id="36e2859f-b215-4e26-b4b3-77cff17b1df5" timestamp="2026-06-20T12:00:33.311Z" tests="2" failures="0" errors="0" time="0.034">
+    <testcase name="health is 200" time="0.034" classname="01FunctionalHealthReturnsOk"/>
+    <testcase name="service is camera stream" time="0.034" classname="01FunctionalHealthReturnsOk"/>
   </testsuite>
-  <testsuite name="01_Functional / Upload valid frame" id="f662d9c5-9dfb-4cfa-9ecc-f641d5ef83dd" timestamp="2026-06-18T13:11:36.705Z" tests="2" failures="0" errors="0" time="0.007">
-    <testcase name="frame accepted or mocked" time="0.007" classname="01FunctionalUploadValidFrame"/>
-    <testcase name="accepted response has camera id field" time="0.007" classname="01FunctionalUploadValidFrame"/>
+  <testsuite name="01_Functional / Upload valid frame" id="51748a22-4e51-460a-9bfc-c25cb1bde353" timestamp="2026-06-20T12:00:33.311Z" tests="2" failures="0" errors="0" time="0.011">
+    <testcase name="frame accepted or mocked" time="0.011" classname="01FunctionalUploadValidFrame"/>
+    <testcase name="accepted response has camera id field" time="0.011" classname="01FunctionalUploadValidFrame"/>
   </testsuite>
-  <testsuite name="01_Functional / List frames" id="de5aa24c-6aa4-4030-a0f0-905d13535313" timestamp="2026-06-18T13:11:36.705Z" tests="2" failures="0" errors="0" time="0.004">
-    <testcase name="list is successful" time="0.004" classname="01FunctionalListFrames"/>
-    <testcase name="items exists" time="0.004" classname="01FunctionalListFrames"/>
+  <testsuite name="01_Functional / List frames" id="30bb81d6-29da-4d4a-ba9f-4176ae3c2000" timestamp="2026-06-20T12:00:33.311Z" tests="2" failures="0" errors="0" time="0.006">
+    <testcase name="list is successful" time="0.006" classname="01FunctionalListFrames"/>
+    <testcase name="items exists" time="0.006" classname="01FunctionalListFrames"/>
   </testsuite>
-  <testsuite name="02_Auth / Upload without token is rejected" id="1b5c53bd-a28c-420b-9ed5-262281db6742" timestamp="2026-06-18T13:11:36.705Z" tests="1" failures="0" errors="0" time="0.003">
-    <testcase name="unauthorized" time="0.003" classname="02AuthUploadWithoutTokenIsRejected"/>
+  <testsuite name="02_Auth / Upload without token is rejected" id="0b11e200-cdbd-41b9-b7f1-5d8b57de4088" timestamp="2026-06-20T12:00:33.311Z" tests="1" failures="0" errors="0" time="0.006">
+    <testcase name="unauthorized" time="0.006" classname="02AuthUploadWithoutTokenIsRejected"/>
   </testsuite>
-  <testsuite name="03_Negative / Invalid image payload returns validation error" id="6178beb1-39f4-406d-bdde-5507ef4d82e7" timestamp="2026-06-18T13:11:36.705Z" tests="2" failures="0" errors="0" time="0.004">
-    <testcase name="invalid payload rejected" time="0.004" classname="03NegativeInvalidImagePayloadReturnsValidationError"/>
-    <testcase name="problem details status exists" time="0.004" classname="03NegativeInvalidImagePayloadReturnsValidationError"/>
+  <testsuite name="03_Negative / Invalid image payload returns validation error" id="58dcff3c-2c37-40f1-9a49-65683697a3f3" timestamp="2026-06-20T12:00:33.311Z" tests="2" failures="0" errors="0" time="0.008">
+    <testcase name="invalid payload rejected" time="0.008" classname="03NegativeInvalidImagePayloadReturnsValidationError"/>
+    <testcase name="problem details status exists" time="0.008" classname="03NegativeInvalidImagePayloadReturnsValidationError"/>
   </testsuite>
-  <testsuite name="04_Boundary_Reliability / Motion score boundary high is accepted" id="d42aafb9-0427-48b7-ad6e-d1988ca2f153" timestamp="2026-06-18T13:11:36.705Z" tests="1" failures="0" errors="0" time="0.004">
-    <testcase name="boundary score accepted" time="0.004" classname="04BoundaryReliabilityMotionScoreBoundaryHighIsAccepted"/>
+  <testsuite name="04_Boundary_Reliability / Motion score boundary high is accepted" id="bf01089f-f848-4116-9ed5-a5b13b2f2688" timestamp="2026-06-20T12:00:33.311Z" tests="1" failures="0" errors="0" time="0.008">
+    <testcase name="boundary score accepted" time="0.008" classname="04BoundaryReliabilityMotionScoreBoundaryHighIsAccepted"/>
   </testsuite>
-  <testsuite name="05_Consumer_side_Smoke / Analyze frame handles Vision and Analytics dependency" id="0f4190cf-7320-4ad9-80fc-6369f1a1e43e" timestamp="2026-06-18T13:11:36.705Z" tests="1" failures="0" errors="0" time="0.073">
-    <testcase name="dependency behavior is controlled" time="0.073" classname="05ConsumerSideSmokeAnalyzeFrameHandlesVisionAndAnalyticsDependency"/>
+  <testsuite name="05_Consumer_side_Smoke / Analyze frame handles Vision and Analytics dependency" id="211a84f7-2acb-4f10-a048-3ba00230646c" timestamp="2026-06-20T12:00:33.311Z" tests="4" failures="0" errors="0" time="0.101">
+    <testcase name="dependency behavior is controlled" time="0.101" classname="05ConsumerSideSmokeAnalyzeFrameHandlesVisionAndAnalyticsDependency"/>
+    <testcase name="vision request includes base64 snapshot metadata" time="0.101" classname="05ConsumerSideSmokeAnalyzeFrameHandlesVisionAndAnalyticsDependency"/>
+    <testcase name="vision returns risk assessment" time="0.101" classname="05ConsumerSideSmokeAnalyzeFrameHandlesVisionAndAnalyticsDependency"/>
+    <testcase name="analytics event carries alert candidate fields" time="0.101" classname="05ConsumerSideSmokeAnalyzeFrameHandlesVisionAndAnalyticsDependency"/>
   </testsuite>
-  <testsuite name="06_Local_only_NonFunctional / Local health latency below 1000ms" id="9cddfb29-7779-4491-85ab-3028b6c2be25" timestamp="2026-06-18T13:11:36.705Z" tests="1" failures="0" errors="0" time="0.003">
-    <testcase name="latency below 1000ms" time="0.003" classname="06LocalOnlyNonFunctionalLocalHealthLatencyBelow1000Ms"/>
+  <testsuite name="06_Local_only_NonFunctional / Local health latency below 1000ms" id="4dd2d660-c29b-4ea6-a22a-56f561b7530d" timestamp="2026-06-20T12:00:33.311Z" tests="1" failures="0" errors="0" time="0.005">
+    <testcase name="latency below 1000ms" time="0.005" classname="06LocalOnlyNonFunctionalLocalHealthLatencyBelow1000Ms"/>
   </testsuite>
 </testsuites>

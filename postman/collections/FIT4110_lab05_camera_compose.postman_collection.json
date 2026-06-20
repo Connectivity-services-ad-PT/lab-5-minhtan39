@@ -65,7 +65,7 @@
         {
           "name": "Analyze frame handles Vision and Analytics dependency",
           "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }], "url": "{{baseUrl}}/api/v1/frames/{{frameId}}/analyze" },
-          "event": [{ "listen": "test", "script": { "exec": ["pm.test('dependency behavior is controlled', () => pm.expect([200,404,422,502,503]).to.include(pm.response.code));", "if ([422,502,503].includes(pm.response.code)) pm.expect(pm.response.json()).to.have.property('status');"] } }]
+          "event": [{ "listen": "test", "script": { "exec": ["pm.test('dependency behavior is controlled', () => pm.expect([200,404,422,502,503]).to.include(pm.response.code));", "const json = pm.response.json();", "if ([422,502,503].includes(pm.response.code)) pm.expect(json).to.have.property('status');", "if (pm.response.code === 200) {", "  pm.test('vision request includes base64 snapshot metadata', () => {", "    pm.expect(json.vision_request).to.include.keys(['request_id','camera_id','timestamp','location','motion_score','image_base64']);", "  });", "  pm.test('vision returns risk assessment', () => {", "    pm.expect(json.vision).to.include.keys(['request_id','detections','unknown_person','risk_level']);", "  });", "  pm.test('analytics event carries alert candidate fields', () => {", "    pm.expect(json.analytics_event).to.include.keys(['event_type','risk_level','unknown_person','alert_candidate']);", "  });", "}"] } }]
         }
       ]
     },

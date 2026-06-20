@@ -4,6 +4,7 @@
 - [x] PostgreSQL has a `pg_isready` healthcheck.
 - [x] AI Vision mock has `GET /health` and `POST /api/v1/detect`.
 - [x] Analytics mock has `GET /health` and `POST /api/v1/events`.
+- [x] Analyze flow sends base64 snapshot metadata to AI Vision and converts the Vision result into a camera analytics event.
 - [x] API reads `VISION_SERVICE_URL`, `ANALYTICS_URL`, `AUTH_TOKEN`, and timeout from `.env`.
 - [x] All services share `team-internal`; API also joins `class-net` for class demo compatibility.
 - [x] API image runs as non-root user through the Dockerfile inherited from Lab 04.
